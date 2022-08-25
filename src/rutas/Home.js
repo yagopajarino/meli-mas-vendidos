@@ -27,25 +27,49 @@ export default function Home() {
           categoría.
         </p>
         <h2 className="text-4xl py-8">Reglas</h2>
-        <p className=" text-lg pb-3">
-          Para cada categoría vas a encontrar seis productos con imagen, título
-          y precio. Lo único que tenés que hacer es clickear el más vendido y el
-          segundo más vendido. Hay un tiempo límite de
-          <strong> diez segundos</strong> para responder. Una vez que elegís un
-          producto <strong>no podés cambiarlo</strong>.
+        <p className=" text-lg pb-3 w-full">
+          <ul className=" list-disc px-10">
+            <li>
+              Cada ronda tiene seis productos con imagen, precio y título de la
+              publicación.
+            </li>
+            <li>
+              En cada ronda tenés que hacer click en el más vendido y en el
+              segundo más vendido.
+            </li>
+            <li>
+              Una vez elegido un producto, <strong>no se puede cambiar</strong>.
+            </li>
+            <li>
+              Tiempo límite de <strong>10 segundos</strong>.
+            </li>
+          </ul>
         </p>
         <h2 className="text-4xl py-8">Puntaje</h2>
-        <p className=" text-lg pb-3">
-          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad
-          minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-          aliquip ex ea commodo consequat. Duis aute irure dolor in
-          reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
-          pariatur. Excepteur sint occaecat cupidatat non proident, sunt in
-          culpa qui officia deserunt mollit anim id est laborum."
+        <p className=" text-lg pb-3 w-full">
+          Ganás puntos por cada producto que elijas correctamente, con los
+          siguientes puntajes:
+          <ul className=" list-disc px-10 py-3">
+            <li>
+              <strong>1ro y 2do correcto:</strong> 4 puntos
+            </li>
+            <li>
+              <strong>1ro correcto:</strong> 3 puntos
+            </li>
+            <li>
+              <strong>2do correcto:</strong> 2 puntos
+            </li>
+            <li>
+              <strong>1ro y 2do correcto, pero intercambiados:</strong> 1 punto
+            </li>
+          </ul>
+        </p>
+        <p className=" text-lg pb-3 w-full">
+          <strong>Ponderación del tiempo</strong>. Cuanto más rápido contestes
+          más puntos ganás.
         </p>
       </div>
-      <div className="flex w-2/4 space-x-11 py-32">
+      <div className="flex w-2/4 space-x-11 py-28">
         <Link to="/jugar" className="w-2/4">
           <Button>Jugar</Button>
         </Link>
