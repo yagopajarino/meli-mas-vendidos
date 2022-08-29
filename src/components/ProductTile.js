@@ -1,4 +1,4 @@
-export default function ProductTile({ element }) {
+export default function ProductTile({ element, onClick }) {
   function parsedPrice(price) {
     return Math.round(price)
       .toString()
@@ -8,6 +8,8 @@ export default function ProductTile({ element }) {
     <div
       className=" m-3 rounded bg-white tile"
       style={{ width: "284px", height: "400px" }}
+      onClick={onClick}
+      id={element.id}
     >
       <div className="my-3 pb-5 px-3 border-b">
         <img src={element.pictures[0].url} height={"200px"}></img>
