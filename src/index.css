@@ -59,3 +59,8 @@ button:active {
   height: 200px;
   object-fit: contain;
 }
+
+.selected {
+  filter: sepia(100%) hue-rotate(60deg) opacity(0.85);
+  border: 2px solid #b7bc28
+}
