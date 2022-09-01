@@ -1,13 +1,24 @@
 import { useEffect, useState } from "react";
 import ProductTile from "../components/ProductTile.js";
 import Button from "../components/Button";
+// import getCategory from "../api/getCategory";
+// import getProducts from "../api/getProducts";
+// import crearPartida from "../api/crearPartida";
+// import getUserID from "../api/getUserID";
+// import getPuntajeRonda from "../api/getPuntajeRonda";
+// import guardarPartida from "../api/guardarPartida";
+
+const TIEMPO_LIMITE = 20;
 
 export default function Game() {
   const [category, setCategory] = useState("");
   const [products, setProducts] = useState([]);
   const [puntaje, setPuntaje] = useState(0);
   const [selected, setSelected] = useState([]);
-  const [tiles, setTiles] = useState();
+  const [tiempo, setTiempo] = useState(TIEMPO_LIMITE);
+  const [partida, setPartida] = useState();
+  const [ronda, setRonda] = useState({});
+  const [userID, setUserID] = useState(0);
 
   const response = [
     {
@@ -450,23 +461,91 @@ export default function Game() {
     },
   ];
 
+  // Efectos de debugeo
+  useEffect(() => {
+    console.log(selected);
+  }, [selected]);
+
+  useEffect(() => {
+    console.log(partida);
+  }, [partida]);
+  //
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
+  // Obtener productos
   useEffect(() => {
     const mocked = response.map((i) => i.body);
     setProducts(mocked);
+    setCategory(
+      "Juegos y Juguetes > Juguetes de Oficios > Electrodomésticos de Juguete"
+    );
   }, []);
+
+  // Obtener user_id
+  useEffect(() => {
+    // setUserID(getUserID())
+    setUserID(1);
+  }, []);
+
+  // Crear partida
+  useEffect(() => {
+    if (userID != 0) {
+      // setPartida(crearPartida());
+      const part_mocked = {
+        inicio: new Date().getTime(),
+        user_id: 0,
+        rondas: [],
+      };
+      setPartida(part_mocked);
+    }
+  }, [userID]);
+
+  // Crear ronda
+  useEffect(() => {
+    setRonda({
+      inicio_ronda: new Date().getTime(),
+      categoria: category,
+      clicks: [],
+    });
+  }, [partida]);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setTiempo(tiempo - 1);
+    }, 1000);
+    if (tiempo == 0 || selected.length == 2) {
+      window.clearTimeout(timer);
+    }
+  }, [tiempo]);
+
+  useEffect(() => {
+    if (selected.length == 2) {
+      ronda.clicks = selected;
+      const p = { ...partida };
+      p.rondas = [...p.rondas, ronda];
+      setPartida(p);
+      // setPuntaje(puntaje + getPuntajeRonda(ronda))
+      setPuntaje(puntaje + 1);
+      // guardarPartida(partida)
+    }
+  }, [selected]);
 
   function addSelection(e) {
     let node = e.target;
     while (node != e.currentTarget) {
       node = node.parentElement;
     }
-    if (!selected.includes(node.id) & (selected.length < 2)) {
+    const ids = selected.map((i) => i.id);
+    if (!ids.includes(node.id) & (selected.length < 2) & (tiempo != 0)) {
       node.classList.toggle("selected");
-      setSelected([...selected, node.id]);
+      const click = {
+        id: node.id,
+        timestamp: new Date().getTime(),
+      };
+      setSelected([...selected, click]);
     }
   }
 
@@ -477,34 +556,42 @@ export default function Game() {
     });
   }
 
-  async function nextGame() {
+  async function nextGame(e) {
     const mocked = response.map((i) => i.body);
     // const cat = await getCategory()
-    // const prod = await getProducts()
+    // const prod = await getProducts(cat)
+    // setProducts(prod)
     removeSelected();
     setProducts(mocked);
     setSelected([]);
-    // setProducts(prod)
+    setTiempo(TIEMPO_LIMITE);
+  }
+
+  async function endGame() {
+    console.log("finalizar partida");
   }
 
   const cont_button = (
-    <div className="w-2/4 my-5" onClick={nextGame}>
-      <Button>Continue</Button>
+    <div className="w-fit my-2">
+      <Button onClick={nextGame} disabled={selected.length != 2 && tiempo != 0}>
+        Continuar
+      </Button>
+    </div>
+  );
+
+  const finalizar_button = (
+    <div className="w-fit my-2">
+      <Button onClick={endGame} disabled={selected.length != 2 && tiempo != 0}>
+        Finalizar partida
+      </Button>
     </div>
   );
 
   return (
-    <div className="w-full bg-gray-200 py-7 flex items-center flex-col">
+    <div className="w-full bg-gray-200 py-7 flex items-center flex-row justify-center">
       <div className="w-3/4 ">
-        <div className="flex items-center justify-between pb-5">
-          <div className="flex items-center w-1/4 justify-left space-x-3">
-            <h1 className="text-3xl font-semibold">Categoría</h1>
-            <p className="text-3xl">{category}</p>
-          </div>
-          <div className="flex items-center w-1/4 justify-end space-x-3 ">
-            <h1 className="text-3xl font-semibold">Puntaje</h1>
-            <p className="text-3xl">{puntaje}</p>
-          </div>
+        <div className="flex items-center justify-start pb-5 space-x-3">
+          <p className="text-xl font-light text-slate-700">{category}</p>
         </div>
         <div className="grid grid-cols-2 md:grid-cols-3 w-full">
           {products.map((element) => (
@@ -512,7 +599,18 @@ export default function Game() {
           ))}
         </div>
       </div>
-      {selected.length == 2 ? cont_button : ""}
+      <div className="flex flex-col">
+        <div className="flex items-center justify-between space-x-3 ">
+          <h1 className="text-3xl font-semibold">Tiempo</h1>
+          <p className="text-3xl">{tiempo}</p>
+        </div>
+        <div className="flex items-center justify-between space-x-3 mb-5">
+          <h1 className="text-3xl font-semibold">Puntaje</h1>
+          <p className="text-3xl">{puntaje}</p>
+        </div>
+        {cont_button}
+        {finalizar_button}
+      </div>
     </div>
   );
 }
