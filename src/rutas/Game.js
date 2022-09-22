@@ -89,13 +89,11 @@ export default function Game() {
   // Crear partida
   useEffect(() => {
     if (userID != 0) {
-      // setPartida(crearPartida());
-      const part_mocked = {
+      setPartida({
         inicio: new Date().getTime(),
-        user_id: 0,
+        user_id: userID,
         rondas: [],
-      };
-      setPartida(part_mocked);
+      });
     }
   }, [userID]);
 
@@ -167,7 +165,7 @@ export default function Game() {
   const cont_button = (
     <div className="w-fit my-2">
       <Button onClick={nextGame} disabled={selected.length != 2 && tiempo != 0}>
-        Continuar
+        Siguente categoría
       </Button>
     </div>
   );
@@ -180,32 +178,42 @@ export default function Game() {
     </div>
   );
 
-  return (
-    <div className="w-full bg-gray-200 py-7 flex items-center flex-row justify-center">
-      <div className="w-3/4 ">
-        <div className="flex items-center justify-start pb-5 space-x-3">
-          <p className="text-xl font-light text-slate-700">{category.name}</p>
-        </div>
-        <div className="grid grid-cols-2 md:grid-cols-3 w-full">
-          {products.length > 0
-            ? products.map((element) => (
-                <ProductTile element={element} onClick={addSelection} />
-              ))
-            : ""}
-        </div>
-      </div>
-      <div className="flex flex-col">
-        <div className="flex items-center justify-between space-x-3 ">
-          <h1 className="text-3xl font-semibold">Tiempo</h1>
-          <p className="text-3xl">{tiempo}</p>
-        </div>
+  const menu = (
+    <div className="absolute flex items-center justify-around backdrop-blur-sm w-full h-full">
+      <div className="bg-lime-50 p-24 rounded-md shadow-lg">
         <div className="flex items-center justify-between space-x-3 mb-5">
           <h1 className="text-3xl font-semibold">Puntaje</h1>
           <p className="text-3xl">{puntaje}</p>
         </div>
-        {cont_button}
-        {finalizar_button}
+        <div className="flex items-center space-x-5">
+          {cont_button}
+          {finalizar_button}
+        </div>
       </div>
     </div>
+  );
+
+  return (
+    <>
+      <div className="w-full bg-gray-200 py-7 flex items-center flex-row justify-center">
+        <div className="w-3/4 ">
+          <div className="flex items-center justify-between pb-5 space-x-3">
+            <p className="text-xl font-light text-slate-700">{category.name}</p>
+            <div className="flex items-center justify-between space-x-3 ">
+              <h1 className="text-3xl font-semibold">Tiempo</h1>
+              <p className="text-3xl w-9">{tiempo}</p>
+            </div>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 w-full">
+            {products.length > 0
+              ? products.map((element) => (
+                  <ProductTile element={element} onClick={addSelection} />
+                ))
+              : ""}
+          </div>
+        </div>
+        {selected.length == 2 || tiempo == 0 ? menu : ""}
+      </div>
+    </>
   );
 }
