@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import ProductTile from "../components/ProductTile.js";
 import Button from "../components/Button";
 import api from "../api/api";
+import { useNavigate } from "react-router-dom";
 // import getProducts from "../api/getProducts";
 // import crearPartida from "../api/crearPartida";
 // import getUserID from "../api/getUserID";
@@ -17,10 +18,12 @@ export default function Game() {
   const [products, setProducts] = useState([]);
   const [puntaje, setPuntaje] = useState(0);
   const [selected, setSelected] = useState([]);
-  const [tiempo, setTiempo] = useState(TIEMPO_LIMITE);
+  const [tiempo, setTiempo] = useState(-1);
   const [partida, setPartida] = useState();
   const [ronda, setRonda] = useState({});
   const [userID, setUserID] = useState(0);
+
+  const navigate = useNavigate();
 
   // Efectos de debugeo
   useEffect(() => {
@@ -74,6 +77,7 @@ export default function Game() {
     const awaitProducts = async () => {
       const products = await api.products.getProducts(category.id);
       setProducts(products);
+      setTiempo(TIEMPO_LIMITE);
     };
     if (category.id != "") {
       awaitProducts();
@@ -104,14 +108,16 @@ export default function Game() {
       categoria: category,
       clicks: [],
     });
-  }, [partida]);
+  }, [category]);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setTiempo(tiempo - 1);
-    }, 1000);
-    if (tiempo == 0 || selected.length == 2) {
-      window.clearTimeout(timer);
+    if (tiempo > 0) {
+      const timer = setTimeout(() => {
+        setTiempo(tiempo - 1);
+      }, 1000);
+      if (tiempo == 0 || selected.length == 2) {
+        window.clearTimeout(timer);
+      }
     }
   }, [tiempo]);
 
@@ -121,8 +127,7 @@ export default function Game() {
       const p = { ...partida };
       p.rondas = [...p.rondas, ronda];
       setPartida(p);
-      // setPuntaje(puntaje + getPuntajeRonda(ronda))
-      setPuntaje(puntaje + 1);
+      setPuntaje(puntaje + api.puntaje.getPuntajeRonda(ronda));
       // guardarPartida(partida)
     }
   }, [selected]);
@@ -155,11 +160,16 @@ export default function Game() {
     setCategory(randomCategory());
     removeSelected();
     setSelected([]);
-    setTiempo(TIEMPO_LIMITE);
+    setTiempo(-1);
   }
 
   async function endGame() {
-    console.log("finalizar partida");
+    api.partida.guardar(partida);
+    if (api.puntaje.esPuntajeAlto(puntaje)) {
+      navigate("/highscore");
+    } else {
+      navigate("/puntajes");
+    }
   }
 
   const cont_button = (
@@ -181,9 +191,19 @@ export default function Game() {
   const menu = (
     <div className="absolute flex items-center justify-around backdrop-blur-sm w-full h-full">
       <div className="bg-lime-50 p-24 rounded-md shadow-lg">
-        <div className="flex items-center justify-between space-x-3 mb-5">
-          <h1 className="text-3xl font-semibold">Puntaje</h1>
-          <p className="text-3xl">{puntaje}</p>
+        <div className="flex items-start flex-col justify-between space-y-3 mb-5">
+          <h1>{category.name}</h1>
+          <a
+            className="underline underline-offset-2 hover:text-blue-900"
+            target="_blank"
+            href={`https://www.mercadolibre.com.ar/mas-vendidos/${category.id}`}
+          >
+            Ver en mercadolibre
+          </a>
+          <div className="flex flex-row space-x-3">
+            <h1 className="text-3xl font-semibold">Puntaje</h1>
+            <p className="text-3xl">{puntaje}</p>
+          </div>
         </div>
         <div className="flex items-center space-x-5">
           {cont_button}
@@ -201,7 +221,7 @@ export default function Game() {
             <p className="text-xl font-light text-slate-700">{category.name}</p>
             <div className="flex items-center justify-between space-x-3 ">
               <h1 className="text-3xl font-semibold">Tiempo</h1>
-              <p className="text-3xl w-9">{tiempo}</p>
+              <p className="text-3xl w-9">{tiempo == -1 ? "" : tiempo}</p>
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 w-full">
