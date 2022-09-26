@@ -1,5 +1,5 @@
 const getProducts = async (categoryId) => {
-  const url = `http://localhost:5000/api/v1/productos?id=${categoryId}`;
+  const url = `${process.env.REACT_APP_API_ENDPOINT}/productos?id=${categoryId}`;
   const data = await fetch(url).then((r) => r.json());
   return data;
 };

@@ -1,4 +1,4 @@
-const getPuntajeRonda = (ronda) => {
+const getPuntajeRonda = async (ronda) => {
   return 10;
 };
 
