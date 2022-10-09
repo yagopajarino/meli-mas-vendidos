@@ -76,7 +76,7 @@ export default function Game() {
   useEffect(() => {
     const awaitProducts = async () => {
       const products = await api.products.getProducts(category.id);
-      setProducts(products);
+      setProducts(products.sort((a, b) => 0.5 - Math.random()));
       setTiempo(TIEMPO_LIMITE);
     };
     if (category.id != "") {
@@ -127,8 +127,7 @@ export default function Game() {
       const p = { ...partida };
       p.rondas = [...p.rondas, ronda];
       setPartida(p);
-      setPuntaje(puntaje + api.puntaje.getPuntajeRonda(ronda));
-      // guardarPartida(partida)
+      api.puntaje.getPuntajeRonda(ronda).then((r) => setPuntaje(puntaje + r));
     }
   }, [selected]);
 
@@ -166,7 +165,7 @@ export default function Game() {
   async function endGame() {
     api.partida.guardar(partida);
     if (api.puntaje.esPuntajeAlto(puntaje)) {
-      navigate("/highscore");
+      navigate("/highscore", { state: { puntaje, userID } });
     } else {
       navigate("/puntajes");
     }
