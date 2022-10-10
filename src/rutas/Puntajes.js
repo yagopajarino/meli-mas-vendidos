@@ -15,7 +15,7 @@ export default function Puntajes() {
 
   return (
     <div className="w-full flex flex-col items-center">
-      <h1 className="text-4xl py-8">Puntajes Altos</h1>
+      <h1 className="text-4xl py-8">Leaderboard</h1>
       {puntajes.length == 0 ? (
         <Loading />
       ) : (
