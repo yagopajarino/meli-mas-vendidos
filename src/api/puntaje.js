@@ -24,7 +24,11 @@ const esPuntajeAlto = async (puntaje) => {
 const getPuntajesAltos = async () => {
   const url = `${process.env.REACT_APP_API_ENDPOINT}/puntaje`;
   const puntajesAltos = await fetch(url).then((r) => r.json());
-  puntajesAltos.sort((a, b) => a.puntaje - b.puntaje).slice(0, 10);
+  puntajesAltos
+    .sort((a, b) => {
+      return b.puntaje - a.puntaje;
+    })
+    .slice(0, 10);
   return puntajesAltos;
 };
 
