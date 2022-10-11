@@ -41,32 +41,19 @@ export default function Home() {
               Una vez elegido un producto, <strong>no se puede cambiar</strong>.
             </li>
             <li>
-              Tiempo límite de <strong>10 segundos</strong>.
+              Tiempo límite de <strong>20 segundos</strong>.
             </li>
           </ul>
         </p>
         <h2 className="text-4xl py-8">Puntaje</h2>
         <p className=" text-lg pb-3 w-full">
-          Ganás puntos por cada producto que elijas correctamente, con los
-          siguientes puntajes:
-          <ul className=" list-disc px-10 py-3">
+          Ganas puntos con las siguientes reglas:
+          <ul className=" list-disc px-8 py-3">
             <li>
-              <strong>1ro y 2do correcto:</strong> 4 puntos
+              100 puntos por cada producto correcto, sin importar el orden
             </li>
-            <li>
-              <strong>1ro correcto:</strong> 3 puntos
-            </li>
-            <li>
-              <strong>2do correcto:</strong> 2 puntos
-            </li>
-            <li>
-              <strong>1ro y 2do correcto, pero intercambiados:</strong> 1 punto
-            </li>
+            <li>Puntos extras cuanto más rápido contestes</li>
           </ul>
-        </p>
-        <p className=" text-lg pb-3 w-full">
-          <strong>Ponderación del tiempo</strong>. Cuanto más rápido contestes
-          más puntos ganás.
         </p>
       </div>
       <div className="flex w-2/4 space-x-11 py-28">
