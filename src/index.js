@@ -10,7 +10,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter>
+  <BrowserRouter basename="/meli-mas-vendidos">
     <Routes>
       <Route path="/" element={<App />}>
         <Route path="/" element={<Home />} />
