@@ -3,11 +3,6 @@ import ProductTile from "../components/ProductTile.js";
 import Button from "../components/Button";
 import api from "../api/api";
 import { useNavigate } from "react-router-dom";
-// import getProducts from "../api/getProducts";
-// import crearPartida from "../api/crearPartida";
-// import getUserID from "../api/getUserID";
-// import getPuntajeRonda from "../api/getPuntajeRonda";
-// import guardarPartida from "../api/guardarPartida";
 
 const TIEMPO_LIMITE = 20;
 
