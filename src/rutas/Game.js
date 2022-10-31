@@ -20,28 +20,6 @@ export default function Game() {
 
   const navigate = useNavigate();
 
-  // Efectos de debugeo
-  useEffect(() => {
-    console.log(selected);
-  }, [selected]);
-
-  useEffect(() => {
-    console.log(partida);
-  }, [partida]);
-
-  useEffect(() => {
-    console.log(category);
-  }, [category]);
-
-  useEffect(() => {
-    console.log(categories);
-  }, [categories]);
-
-  useEffect(() => {
-    console.log(products);
-  }, [products]);
-  //
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
