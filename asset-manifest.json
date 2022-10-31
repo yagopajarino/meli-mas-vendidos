@@ -1,0 +1,13 @@
+{
+  "files": {
+    "main.css": "/meli_mas_vendidos/static/css/main.7178500b.css",
+    "main.js": "/meli_mas_vendidos/static/js/main.92f9281f.js",
+    "index.html": "/meli_mas_vendidos/index.html",
+    "main.7178500b.css.map": "/meli_mas_vendidos/static/css/main.7178500b.css.map",
+    "main.92f9281f.js.map": "/meli_mas_vendidos/static/js/main.92f9281f.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.7178500b.css",
+    "static/js/main.92f9281f.js"
+  ]
+}
