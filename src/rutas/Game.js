@@ -3,6 +3,7 @@ import ProductTile from "../components/ProductTile.js";
 import Button from "../components/Button";
 import api from "../api/api";
 import { useNavigate } from "react-router-dom";
+import Loading from "../components/Loading";
 
 const TIEMPO_LIMITE = 20;
 
@@ -59,7 +60,6 @@ export default function Game() {
 
   // Obtener user_id
   useEffect(() => {
-    // setUserID(getUserID())
     setUserID(1);
   }, []);
 
@@ -197,11 +197,13 @@ export default function Game() {
             </div>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-3 w-full">
-            {products.length > 0
-              ? products.map((element) => (
-                  <ProductTile element={element} onClick={addSelection} />
-                ))
-              : ""}
+            {products.length > 0 ? (
+              products.map((element) => (
+                <ProductTile element={element} onClick={addSelection} />
+              ))
+            ) : (
+              <Loading />
+            )}
           </div>
         </div>
         {selected.length == 2 || tiempo == 0 ? menu : ""}
