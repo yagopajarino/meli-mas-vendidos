@@ -1,13 +1,13 @@
 {
   "files": {
-    "main.css": "/meli-mas-vendidos/static/css/main.7178500b.css",
-    "main.js": "/meli-mas-vendidos/static/js/main.087f9b47.js",
+    "main.css": "/meli-mas-vendidos/static/css/main.74329240.css",
+    "main.js": "/meli-mas-vendidos/static/js/main.030e1ddc.js",
     "index.html": "/meli-mas-vendidos/index.html",
-    "main.7178500b.css.map": "/meli-mas-vendidos/static/css/main.7178500b.css.map",
-    "main.087f9b47.js.map": "/meli-mas-vendidos/static/js/main.087f9b47.js.map"
+    "main.74329240.css.map": "/meli-mas-vendidos/static/css/main.74329240.css.map",
+    "main.030e1ddc.js.map": "/meli-mas-vendidos/static/js/main.030e1ddc.js.map"
   },
   "entrypoints": [
-    "static/css/main.7178500b.css",
-    "static/js/main.087f9b47.js"
+    "static/css/main.74329240.css",
+    "static/js/main.030e1ddc.js"
   ]
 }
