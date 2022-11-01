@@ -6,7 +6,11 @@ export default function Home() {
   return (
     <div className="w-3/4 flex flex-col items-center">
       <div className="w-full flex flex-col items-center text-left">
-        <h1 className="text-6xl py-16">Mercado Libre Más Vendidos</h1>
+        <h1 className="text-6xl py-16 ">
+          <p className="bg-yellow-300 py-2 px-3 font-medium -skew-x-6 text-center">
+            Mercado Libre Top of Mind
+          </p>
+        </h1>
         <p className=" text-lg w-full pb-3">
           Poné a prueba tus conocimientos del mercado para identificar los
           productos más vendidos de la categoría.
