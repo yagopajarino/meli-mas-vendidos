@@ -6,8 +6,10 @@ export default function ProductTile({ element, onClick }) {
   }
   return (
     <div
-      className=" my-3 rounded bg-white tile"
-      style={{ width: "284px", height: "400px" }}
+      className=" lg:my-3 rounded bg-white tile w-full"
+      style={
+        window.innerWidth > 1024 ? { width: "284px", height: "400px" } : {}
+      }
       onClick={onClick}
       id={element.id}
     >
