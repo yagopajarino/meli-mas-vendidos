@@ -4,7 +4,7 @@ import MasVendido from "../components/MasVendido";
 
 export default function Home() {
   return (
-    <div className="w-3/4 flex flex-col items-center">
+    <div className="w-full px-8 lg:px-0 lg:w-3/4 flex flex-col items-center">
       <div className="w-full flex flex-col items-center text-left">
         <h1 className="text-6xl py-16 ">
           <p className="bg-yellow-300 py-2 px-3 font-medium -skew-x-6 text-center">
@@ -60,7 +60,7 @@ export default function Home() {
           </ul>
         </p>
       </div>
-      <div className="flex w-2/4 space-x-11 py-28">
+      <div className="flex w-full lg:w-2/4 space-x-11 py-12 lg:py-28">
         <Link to="/jugar" className="w-2/4">
           <Button>Jugar</Button>
         </Link>
