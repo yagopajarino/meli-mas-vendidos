@@ -60,8 +60,20 @@ export default function Game() {
 
   // Obtener user_id
   useEffect(() => {
-    setUserID(1);
+    const checkId = async () => {
+      let item = JSON.parse(localStorage.getItem("user_id"));
+      if (item == null) {
+        const result = await api.users.getUserId();
+        item = result.id;
+      }
+      setUserID(item);
+    };
+    checkId();
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("user_id", JSON.stringify(userID));
+  }, [userID]);
 
   // Crear partida
   useEffect(() => {
@@ -188,15 +200,15 @@ export default function Game() {
   return (
     <>
       <div className="w-full bg-gray-200 py-7 flex items-center flex-row justify-center">
-        <div className="w-3/4 ">
-          <div className="flex items-center justify-between pb-5 space-x-3">
+        <div className="w-full p-4 lg:p-0 lg:w-3/4 ">
+          <div className="block lg:flex items-center justify-between pb-5 space-x-3">
             <p className="text-xl font-light text-slate-700">{category.name}</p>
-            <div className="flex items-center justify-between space-x-3 ">
+            <div className="flex items-center pt-5 lg:pt-0 lg:justify-between space-x-3 ">
               <h1 className="text-3xl font-semibold">Tiempo</h1>
               <p className="text-3xl w-9">{tiempo == -1 ? "" : tiempo}</p>
             </div>
           </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 w-full">
+          <div className="block md:grid md:grid-cols-2 lg:grid-cols-3 w-full">
             {products.length > 0 ? (
               products.map((element) => (
                 <ProductTile element={element} onClick={addSelection} />
