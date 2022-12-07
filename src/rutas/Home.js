@@ -1,8 +1,13 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import MasVendido from "../components/MasVendido";
 
 export default function Home() {
+  useEffect(() => {
+    fetch(process.env.REACT_APP_API_ENDPOINT);
+  }, []);
+
   return (
     <div className="w-full px-8 lg:px-0 lg:w-3/4 flex flex-col items-center">
       <div className="w-full flex flex-col items-center text-left">
