@@ -9,13 +9,17 @@ export default function Puntajes() {
 
   useEffect(() => {
     setTimeout(() => {
-      api.puntaje.getPuntajesAltos().then((r) => setPuntajes(r));
+      // api.puntaje.getPuntajesAltos().then((r) => setPuntajes(r));
     }, 1000);
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
   }, []);
 
   return (
     <div className="w-full flex flex-col items-center">
-      <h1 className="text-4xl py-8">Leaderboard</h1>
+      <h1 className="text-4xl py-8">Scoreboard</h1>
       {puntajes.length == 0 ? (
         <Loading />
       ) : (
@@ -46,7 +50,10 @@ export default function Puntajes() {
           </table>
         </div>
       )}
-      <div className="w-1/2 py-5">
+      <div className="w-1/2 py-5 flex space-x-4">
+        <Link to="/" className="w-2/4">
+          <Button>Volver</Button>
+        </Link>
         <Link to="/jugar" className="w-2/4">
           <Button>Jugar</Button>
         </Link>
