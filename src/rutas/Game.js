@@ -18,6 +18,7 @@ export default function Game() {
   const [partida, setPartida] = useState();
   const [ronda, setRonda] = useState({});
   const [userID, setUserID] = useState(0);
+  const [qrondas, setQrondas] = useState(1);
 
   const navigate = useNavigate();
 
@@ -145,6 +146,7 @@ export default function Game() {
     removeSelected();
     setSelected([]);
     setTiempo(-1);
+    setQrondas(qrondas + 1);
   }
 
   async function endGame() {
@@ -190,7 +192,7 @@ export default function Game() {
           </div>
         </div>
         <div className="flex items-center space-x-5">
-          {cont_button}
+          {qrondas < 10 ? cont_button : ""}
           {finalizar_button}
         </div>
       </div>
@@ -201,22 +203,26 @@ export default function Game() {
     <>
       <div className="w-full bg-gray-200 py-7 flex items-center flex-row justify-center">
         <div className="w-full p-4 lg:p-0 lg:w-3/4 ">
-          <div className="block lg:flex items-center justify-between pb-5 space-x-3">
-            <p className="text-xl font-light text-slate-700">{category.name}</p>
-            <div className="flex items-center pt-5 lg:pt-0 lg:justify-between space-x-3 ">
-              <h1 className="text-3xl font-semibold">Tiempo</h1>
-              <p className="text-3xl w-9">{tiempo == -1 ? "" : tiempo}</p>
-            </div>
-          </div>
-          <div className="block md:grid md:grid-cols-2 lg:grid-cols-3 w-full">
-            {products.length > 0 ? (
-              products.map((element) => (
-                <ProductTile element={element} onClick={addSelection} />
-              ))
-            ) : (
-              <Loading />
-            )}
-          </div>
+          {products.length > 0 ? (
+            <>
+              <div className="block lg:flex items-center justify-between pb-5 space-x-3">
+                <p className="text-xl font-light text-slate-700">
+                  {category.name}
+                </p>
+                <div className="flex items-center pt-5 lg:pt-0 lg:justify-between space-x-3 ">
+                  <h1 className="text-3xl font-semibold">Tiempo</h1>
+                  <p className="text-3xl w-9">{tiempo == -1 ? "" : tiempo}</p>
+                </div>
+              </div>
+              <div className="block md:grid md:grid-cols-2 lg:grid-cols-3 w-full">
+                {products.map((element) => (
+                  <ProductTile element={element} onClick={addSelection} />
+                ))}
+              </div>
+            </>
+          ) : (
+            <Loading />
+          )}
         </div>
         {selected.length == 2 || tiempo == 0 ? menu : ""}
       </div>
