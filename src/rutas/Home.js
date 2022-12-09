@@ -65,7 +65,7 @@ export default function Home() {
           </ul>
         </p>
       </div>
-      <div className="flex w-full lg:w-2/4 space-x-11 py-12 lg:py-28">
+      <div className="flex w-full lg:w-2/4 space-x-11 py-10 lg:py-16">
         <Link to="/jugar" className="w-2/4">
           <Button>Jugar</Button>
         </Link>
