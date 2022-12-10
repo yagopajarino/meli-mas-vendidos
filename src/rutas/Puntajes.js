@@ -9,7 +9,7 @@ export default function Puntajes() {
 
   useEffect(() => {
     setTimeout(() => {
-      // api.puntaje.getPuntajesAltos().then((r) => setPuntajes(r));
+      api.puntaje.getPuntajesAltos().then((r) => setPuntajes(r));
     }, 1000);
   }, []);
 
@@ -18,29 +18,23 @@ export default function Puntajes() {
   }, []);
 
   return (
-    <div className="w-full flex flex-col items-center">
+    <div className="w-full flex flex-col items-center px-5 lg:px-0">
       <h1 className="text-4xl py-8">Scoreboard</h1>
       {puntajes.length == 0 ? (
         <Loading />
       ) : (
-        <div className="p-5 w-3/4 bg-slate-100 rounded-lg shadow-lg">
+        <div className="w-full lg:w-1/2 bg-yellow-300 shadow-lg border border-yellow-400">
           <table class="items-center text-center w-full text-lg">
-            <thead className="text-xl pt-5">
-              <th>Posición</th>
+            <thead className="text-xl pt-5 border border-yellow-400">
+              <th className="py-4">Posición</th>
               <th>Nombre</th>
               <th>Puntaje</th>
             </thead>
             <tbody>
               {puntajes.map((element, index) => {
                 return (
-                  <tr
-                    className={`h-12 text-xl ${
-                      index < puntajes.length - 1
-                        ? "border-b border-slate-400"
-                        : ""
-                    }`}
-                  >
-                    <td>{index + 1}</td>
+                  <tr className={`h-12 text-xl border border-yellow-400`}>
+                    <td className="py-2">{index + 1}</td>
                     <td>{element.username}</td>
                     <td>{element.puntaje}</td>
                   </tr>
@@ -50,7 +44,7 @@ export default function Puntajes() {
           </table>
         </div>
       )}
-      <div className="w-1/2 py-5 flex space-x-4">
+      <div className="w-full lg:w-1/2 py-10 flex space-x-4">
         <Link to="/" className="w-2/4">
           <Button>Volver</Button>
         </Link>
