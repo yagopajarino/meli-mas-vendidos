@@ -175,7 +175,15 @@ export default function Game() {
   );
 
   const menu = (
-    <div className="absolute flex items-center justify-around backdrop-blur-sm w-full h-full">
+    <div
+      className="absolute flex items-center justify-around backdrop-blur-sm w-full h-full"
+      style={{
+        height:
+          document.querySelector("#container") != undefined
+            ? document.querySelector("#container").offsetHeight
+            : "",
+      }}
+    >
       <div className="bg-lime-50 p-24 rounded-md shadow-lg">
         <div className="flex items-start flex-col justify-between space-y-3 mb-5">
           <h1>{category.name}</h1>
@@ -201,7 +209,10 @@ export default function Game() {
 
   return (
     <>
-      <div className="w-full bg-gray-200 py-7 flex items-center flex-row justify-center">
+      <div
+        className="w-full bg-gray-200 py-7 flex items-center flex-row justify-center "
+        id="container"
+      >
         <div className="w-full p-4 lg:p-0 lg:w-3/4 ">
           {products.length > 0 ? (
             <>
